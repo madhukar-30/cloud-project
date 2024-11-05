@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cloud project</title>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cloud project</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-<body>
-  
-    <main>
 
+<body class="w-auto h-auto flex items-center justify-center">
 
-<div class="upload-button">
-<div class="container">
-  <div class="folder">
-    <div class="front-side">
-      <div class="tip"></div>
-      <div class="cover"></div>
+  <main class="flex flex-col gap-6 items-center justify-center min-h-screen max-w-80">
+    <div class="upload-button">
+      <div class="container">
+        <div class="folder">
+          <div class="front-side">
+            <div class="tip"></div>
+            <div class="cover"></div>
+          </div>
+          <div class="back-side cover"></div>
+        </div>
+        <label class="custom-file-upload">
+          <input class="title" type="file" id="fileInput" />
+          Choose a file
+        </label>
+      </div>
     </div>
-    <div class="back-side cover"></div>
-  </div>
-  <label class="custom-file-upload">
-    <input class="title" type="file" />
-    Choose a file
-  </label>
-</div>
-</div>
+    <div id="preview"></div>
 
-    </main>
+  </main>
+
 </body>
+
 </html>
