@@ -56,7 +56,7 @@ export default function Home() {
 
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5555/upload", {
+      const response = await fetch(`${process.env.BACKEND_ROUTE}/upload`, {
         method: "POST",
         body: formData,
       });
