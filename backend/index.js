@@ -285,23 +285,25 @@ app.get('/file', async (req, res) => {
 // });
 
 // Handle graceful shutdown
-// process.on('SIGTERM', async () => {
-//     console.log('SIGTERM received. Closing HTTP server and DB connection...');
-//     await client.close();
-//     server.close(() => {
-//         console.log('Server and DB connection closed.');
-//         process.exit(0);
-//     });
-// });
-
-mongoose
-    .connect(process.env.MONGODB_URI || mongodbUri)
-    .then(() => {
-        console.log('App connected to database.');
-        app.listen(process.env.PORT || 5555, () => {
-            console.log(`App is listening to Port: ${process.env.PORT}`);
-        });
-    })
-    .catch((error) => {
-        console.log(error);
+process.on('SIGTERM', async () => {
+    console.log('SIGTERM received. Closing HTTP server and DB connection...');
+    await client.close();
+    server.close(() => {
+        console.log('Server and DB connection closed.');
+        process.exit(0);
     });
+});
+
+mongoose.connect(process.env.MONGODB_URI || mongodbUri, {
+    serverSelectionTimeoutMS: 10000, // 10 seconds timeout for connecting to MongoDB
+    socketTimeoutMS: 45000, // Timeout for socket idle
+})
+.then(() => {
+    console.log('App connected to database.');
+    app.listen(process.env.PORT || 5555, () => {
+        console.log(`App is listening to Port: ${process.env.PORT}`);
+    });
+})
+.catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+});
