@@ -137,45 +137,41 @@ const upload = multer({
 const blobServiceClient = new BlobServiceClient(sasUrl);
 const containerClient = blobServiceClient.getContainerClient(containerName);
 
+// Simplified MongoDB connection options
 const mongoOptions = {
-  maxPoolSize: 10,
-  minPoolSize: 5,
+  useUnifiedTopology: true,
+  maxPoolSize: 1,
   serverSelectionTimeoutMS: 5000,
   socketTimeoutMS: 45000,
-  ssl: true,
-  tls: true,
-  tlsAllowInvalidCertificates: false,
-  tlsAllowInvalidHostnames: false,
-  directConnection: false,
-  retryWrites: true,
-  replicaSet: "atlas-apsxl5-shard-0",
-  authSource: "admin",
-  authMechanism: "SCRAM-SHA-1",
 };
 
-// Initialize MongoDB client with options
-const client = new MongoClient(mongodbUri, mongoOptions);
-
-let db;
-let collection;
+let client = null;
+let db = null;
+let collection = null;
 
 const connectDB = async () => {
-  if (!db) {
-    try {
+  try {
+    if (!client) {
+      client = new MongoClient(mongodbUri, mongoOptions);
       await client.connect();
-      console.log("Connected to MongoDB");
-      db = client.db("cloud");
-      collection = db.collection("cloud");
-    } catch (error) {
-      console.error("MongoDB connection error:", error);
-      throw error;
+      db = client.db('cloud');
+      collection = db.collection('cloud');
+      console.log('Connected to MongoDB');
     }
+    return { db, collection };
+  } catch (error) {
+    console.error('MongoDB connection error:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
+    // Reset the connection if there's an error
+    client = null;
+    db = null;
+    collection = null;
+    throw error;
   }
-  return { db, collection };
 };
-
-// Test the database connection immediately
-connectDB().catch(console.error);
 
 const app = express();
 app.use(cors());
