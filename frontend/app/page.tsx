@@ -36,6 +36,7 @@ export default function Home() {
   }, [setNavTracker]);
 
   const email = user;
+  const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,7 +57,7 @@ export default function Home() {
 
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.BACKEND_UPLOAD_ROUTE}`, {
+      const response = await fetch(`${backendUri}`, {
         method: "POST",
         body: formData,
       });
