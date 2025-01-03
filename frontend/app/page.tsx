@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { UploadCloud } from "lucide-react";
 
 const formSchema = z.object({
   files: z.any().refine((file) => file instanceof FileList && file.length > 0, {
@@ -112,8 +113,10 @@ export default function Home() {
                       control={form.control}
                       name="files"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Files</FormLabel>
+                        <FormItem className="border border-[#efefef] rounded-md h-44 w-72 px-2 flex items-center justify-center flex-col shadow">
+                          <FormLabel>
+                            <UploadCloud className="w-16 h-16" />
+                          </FormLabel>
                           <FormControl>
                             <Input
                               type="file"
@@ -121,16 +124,17 @@ export default function Home() {
                               onChange={(e) =>
                                 form.setValue("files", e.target.files)
                               }
+                              className='border border-[#efefef] shadow-none w-56'
                             />
                           </FormControl>
                           <FormDescription>
-                            Upload one or more files.
+                            Upload your file here.
                           </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="mt-6">Submit</Button>
+                    <Button type="submit" className="mt-6 w-72">Submit</Button>
                   </form>
                 </Form>
 
