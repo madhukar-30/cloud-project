@@ -7,7 +7,9 @@ import { FaGoogle } from 'react-icons/fa';
 import { signIn, signOut } from 'next-auth/react';
 import { UserContext } from '@/context/userContext';
 import Image from 'next/image';
-import { LogInIcon, LogOutIcon, Menu } from 'lucide-react';
+import { LogInIcon, LogOutIcon, MailIcon, Menu } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from './ui/button';
 
 const Navbar = () => {
     const { authenticated, navTracker } = useContext(UserContext);
@@ -20,7 +22,7 @@ const Navbar = () => {
             <div className='md:w-[25%] w-5/12 h-full flex items-center justify-center bg-black'>
                 <div className='w-full h-full flex items-center justify-center bg-[#E6E4D5] rounded-t-2xl'>
                     <Link href='/' className='mt-3'>
-                        <Image src={'/assets/manas-cloud.svg'} alt='' width={160} height={40} />
+                        <Image src={'/assets/manas-cloud.svg'} alt='' width={160} height={40} className='w-40 h-auto' />
                     </Link>
                 </div>
             </div>
@@ -44,16 +46,29 @@ const Navbar = () => {
             {/* second half */}
             <div className='md:w-[25%] w-5/12 h-full flex items-center justify-center bg-black'>
                 <div className='w-full h-full flex items-center justify-center bg-[#E6E4D5] rounded-t-2xl gap-2'>
-                    <Link href='/' className='mt-3 border-2 border-black font-medium uppercase transition-all hover:bg-black hover:text-white rounded-full px-6 h-8 flex items-center justify-center'>
-                        Reach Us
-                    </Link>
                     {authenticated ? (
-                        <div className='mt-3 border-2 border-black transition-all hover:bg-black hover:text-white rounded-full h-8 w-8 p-1 md:flex hidden items-center justify-center cursor-pointer' onClick={() => signOut()}>
-                            <LogOutIcon />
-                        </div>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <div className='mt-3 border-2 border-black transition-all hover:bg-black hover:text-white rounded-full h-8 w-auto uppercase px-4 md:flex hidden items-center justify-center gap-2 cursor-pointer'>
+                                    Sign Out
+                                    <LogOutIcon />
+                                </div>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                                    <DialogDescription>
+                                        This action cannot be undone. This will permanently delete your account
+                                        and remove your data from our servers.
+                                    </DialogDescription>
+                                    <Button variant={'destructive'} onClick={() => signOut()}>LogOut</Button>
+                                </DialogHeader>
+                            </DialogContent>
+                        </Dialog>
                     ) : (
-                        <div className='mt-3 border-2 border-black transition-all hover:bg-black hover:text-white rounded-full h-8 w-8 p-1 md:flex hidden items-center justify-center cursor-pointer' onClick={() => signIn()}>
-                            <LogInIcon />
+                        <div className='mt-3 border-2 border-black transition-all hover:bg-black hover:text-white rounded-full h-8 w-auto uppercase px-4 md:flex hidden items-center justify-center gap-2 cursor-pointer'>
+                            Reach Us
+                            <MailIcon />
                         </div>
                     )}
                 </div>
