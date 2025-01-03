@@ -4,17 +4,30 @@ import Loader from '@/components/Loader'
 import Login from '@/components/Login'
 import Navbar from '@/components/Navbar'
 import { UserContext } from '@/context/userContext'
-import { CopyIcon } from 'lucide-react';
+import { CheckCircleIcon, CopyIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 const ProfilePage = () => {
     const { loading, authenticated, setNavTracker, userData } = useContext(UserContext);
+    const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
     useEffect(() => {
         setNavTracker('profile');
     }, [setNavTracker]);
+
+    const handleCopy = async (url: string, index: number) => {
+        try {
+            await navigator.clipboard.writeText(url);
+            setCopiedIndex(index);
+            setTimeout(() => {
+                setCopiedIndex(null);
+            }, 4000);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    };
 
     return (
         <React.Fragment>
@@ -43,8 +56,11 @@ const ProfilePage = () => {
                                                     <Link href={file} target="_blank" rel="noopener noreferrer" className="w-full px-2 py-2 text-nowrap">
                                                         {file}
                                                     </Link>
-                                                    <div className='bg-white shadow absolute bottom-0 right-0 py-2 px-2 cursor-pointer'>
-                                                        <CopyIcon />
+                                                    <div
+                                                        className='bg-white shadow absolute bottom-0 right-0 py-2 px-2 cursor-pointer hover:bg-gray-100 transition-colors'
+                                                        onClick={() => handleCopy(file, index)}
+                                                    >
+                                                        {copiedIndex === index ? <CheckCircleIcon className="text-green-600" /> : <CopyIcon />}
                                                     </div>
                                                 </div>
                                             </div>

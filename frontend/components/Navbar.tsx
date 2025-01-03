@@ -3,11 +3,10 @@
 import React, { useContext, useState } from 'react';
 
 import Link from 'next/link';
-import { FaGoogle } from 'react-icons/fa';
-import { signIn, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { UserContext } from '@/context/userContext';
 import Image from 'next/image';
-import { LogInIcon, LogOutIcon, MailIcon, Menu } from 'lucide-react';
+import { LogOutIcon, MailIcon, Menu } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from './ui/button';
 
