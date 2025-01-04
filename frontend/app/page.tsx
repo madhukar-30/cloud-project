@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { UploadCloud } from "lucide-react";
+import Head from "next/head";
 
 const formSchema = z.object({
   files: z.any().refine((file) => file instanceof FileList && file.length > 0, {
@@ -93,6 +94,11 @@ export default function Home() {
 
   return (
     <React.Fragment>
+      <Head>
+        <link rel="icon" href="/favicon.ico" type="image/ico" sizes="70x70" />
+        <title>Manas Cloud</title>
+      </Head>
+      
       <div className='w-full md:h-screen h-full min-h-screen flex flex-col items-center bg-black p-5 relative'>
 
         {loading && <Loader />}

@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Navbar from '@/components/Navbar'
 import { UserContext } from '@/context/userContext'
 import { CheckCircleIcon, CopyIcon } from 'lucide-react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
@@ -31,6 +32,11 @@ const ProfilePage = () => {
 
     return (
         <React.Fragment>
+            <Head>
+                <link rel="icon" href="/favicon.ico" type="image/ico" sizes="70x70" />
+                <title>Manas Cloud</title>
+            </Head>
+
             <div className='w-full md:h-screen h-full min-h-screen flex flex-col items-center bg-black p-5 relative'>
 
                 {loading && <Loader />}

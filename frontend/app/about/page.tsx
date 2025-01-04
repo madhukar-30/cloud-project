@@ -2,6 +2,7 @@
 
 import Navbar from '@/components/Navbar'
 import { UserContext } from '@/context/userContext'
+import Head from 'next/head';
 import React, { useContext, useEffect } from 'react'
 
 const AboutPage = () => {
@@ -13,6 +14,11 @@ const AboutPage = () => {
 
     return (
         <React.Fragment>
+            <Head>
+                <link rel="icon" href="/favicon.ico" type="image/ico" sizes="70x70" />
+                <title>Manas Cloud</title>
+            </Head>
+
             <div className='w-full md:h-screen h-full min-h-screen flex flex-col items-center bg-black p-5 relative'>
 
                 <div className='flex flex-col w-full min-h-full my-auto justify-start rounded-2xl bg-[#E6E4D5] shadow-md'>
