@@ -21,7 +21,7 @@ const Navbar = () => {
             <div className='md:w-[25%] w-5/12 h-full flex items-center justify-center bg-black'>
                 <div className='w-full h-full flex items-center justify-center bg-[#E6E4D5] rounded-t-2xl'>
                     <Link href='/' className='mt-3'>
-                        <Image src={'/assets/manas-cloud.svg'} alt='' width={160} height={40} className='w-40 h-auto' />
+                        <Image src={'/assets/cloud-share.svg'} alt='' width={160} height={40} className='w-40 h-auto' />
                     </Link>
                 </div>
             </div>
