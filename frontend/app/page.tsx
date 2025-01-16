@@ -111,7 +111,7 @@ export default function Home() {
               <Navbar />
 
               <div className='flex flex-col w-full md:px-28 px-10 h-auto items-center justify-center mt-10'>
-                <div className='md:text-8xl text-4xl font-black uppercase'>Manas Cloud Share</div>
+                <div className='md:text-8xl text-4xl font-black uppercase'>Cloud Share</div>
 
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="mt-10">
